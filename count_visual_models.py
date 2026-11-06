@@ -1,6 +1,6 @@
 import os
 import re
-import fitz  # PyMuPDF
+import fitz
 import pandas as pd
 
 CAPTION_RE = re.compile(
@@ -37,7 +37,6 @@ def count_visual_models_in_pdf(pdf_path: str) -> dict:
         if img_count > 0:
             pages_with_images += 1
 
-        # ---- Count UNIQUE caption labels per page ----
         text = page.get_text("text") or ""
         hits = CAPTION_RE.findall(text)
         unique_caps = {(h[0].lower(), h[1]) for h in hits}
@@ -72,7 +71,7 @@ def analyze_folder(folder_path: str, output_csv: str = "visual_models_by_book.cs
 
     print(f"Found {len(pdfs)} PDFs under: {folder_path}")
     if not pdfs:
-        print("No PDFs found. Check the folder path.")
+        print("No PDFs found.")
         return
 
     rows = []
